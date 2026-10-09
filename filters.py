@@ -17,7 +17,7 @@ iterator.
 You'll edit this file in Tasks 3a and 3c.
 """
 import operator
-
+import itertools
 
 class UnsupportedCriterionError(NotImplementedError):
     """A filter criterion is unsupported."""
@@ -134,7 +134,6 @@ def create_filters(
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
-    # TODO: Decide how you will represent your filters.
     print('date', date, 'start_date', start_date, 'end_date', end_date,
           'distance_min', distance_min, 'distance_max', distance_max,
           'velocity_min', velocity_min, 'velocity_max', velocity_max,
@@ -173,7 +172,7 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    # TODO: Produce at most `n` values from the given iterator.
     if n is None or n == 0:
-        return iterator
-    return list(iterator)[:n]
+        yield from iterator
+    else:
+        yield from itertools.islice(iterator, n)
